@@ -1,0 +1,20 @@
+{
+  "name": "01-npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests.js",
+    "test:debug": "mocha --inspect-brk tests.js"
+  },
+  "author": "Luis Fernando",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "nock": "^10.0.6",
+    "random-id": "^1.0.3"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.3"
+  }
+}
