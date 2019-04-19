@@ -13,7 +13,13 @@ const pattern = "aAO"
 const DEFAULT_ITEM_CADASTRAR = {
     nome: "Flash",
     poder: "Speed",
-    "id": randomId(len, pattern)
+    "id": 1
+}
+
+const DEFAULT_ITEM_ATUALIZAR = {
+    nome: "Lanterna Verde",
+    poder: "Energia do Anel",
+    "id": 2
 }
 
 
@@ -71,7 +77,8 @@ describe("Start Wars Tests", function () {
 //Trabalhando com arquivos
 describe("Suite de manipulação de Herois", () => {
     before(async () => {
-        await database.cadastrar(DEFAULT_ITEM_CADASTRAR)
+       await database.cadastrar(DEFAULT_ITEM_CADASTRAR)
+       await database.cadastrar(DEFAULT_ITEM_ATUALIZAR)
     })
 
     it("deve pesquisar um heroi, usando arquivos", async () => {
@@ -85,5 +92,28 @@ describe("Suite de manipulação de Herois", () => {
         const resultado = await database.cadastrar(DEFAULT_ITEM_CADASTRAR)
         const [actual] = await database.listar(DEFAULT_ITEM_CADASTRAR.id)
         deepEqual(actual, expected)
+    })
+
+    it("deve remover um heroi por id", async () =>{
+        const expected = true;
+        const resultado = await database.remover(DEFAULT_ITEM_CADASTRAR.id)
+        deepEqual(resultado,expected)
+    })
+
+    it("deve atualizar o usuãrio pelo id", async () =>{
+        const expected = {
+            ...DEFAULT_ITEM_ATUALIZAR,
+            nome:"Batman",
+            poder:"Dinheiro"
+        }
+        const novoDado = {
+            nome:"Batman",
+            poder:"Dinheiro"
+        }
+        
+        await database.atualizar(DEFAULT_ITEM_ATUALIZAR.id,novoDado)
+        const [resultado] = await database.listar(DEFAULT_ITEM_ATUALIZAR.id)
+        deepEqual(resultado,expected)
+
     })
 })
